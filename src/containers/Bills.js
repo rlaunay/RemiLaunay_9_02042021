@@ -37,9 +37,11 @@ export default class {
                 .get()
                 .then(snapshot => {
                     const bills = snapshot.docs
+                        .filter(doc => {
+                            return doc.data().date !== undefined && doc.data().date !== "1564569"
+                        })
                         .map(doc => ({
                             ...doc.data(),
-                            date: formatDate(doc.data().date),
                             status: formatStatus(doc.data().status)
                         }))
                         .filter(bill => bill.email === userEmail)

@@ -2,6 +2,8 @@ import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
 
+import {formatDate} from "../app/format.js"
+
 import Actions from './Actions.js'
 
 const row = (bill) => {
@@ -24,7 +26,6 @@ const rows = (data) => {
 }
 
 export default ({data: bills, loading, error}) => {
-
     const modal = () => (`
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -69,7 +70,7 @@ export default ({data: bills, loading, error}) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(bills.sort((a, b) => ((a.date < b.date) ? 1 : -1)))}
           </tbody>
           </table>
         </div>
