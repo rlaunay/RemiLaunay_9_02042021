@@ -6,11 +6,11 @@ export default (height) => {
     let user;
     user = JSON.parse(localStorage.getItem('user'))
     if (typeof user === 'string') {
-      user = JSON.parse(user)
+        user = JSON.parse(user)
     }
     if (user && user.type === 'Employee') {
-      return (
-        `
+        return (
+            `
         <div class='vertical-navbar' style='height: ${height}vh;'>
           <div class='layout-title'> Billed </div>
           <div id='layout-icon1' data-testid="icon-window">
@@ -24,10 +24,10 @@ export default (height) => {
           </div>
       </div>
         `
-      ) 
+        )
     } else {
-      return (
-        `
+        return (
+            `
         <div class='vertical-navbar' style='height: ${height}vh;'>
           <div class='layout-title'> Billed </div>
             <div id='layout-disconnect' data-testid='layout-disconnect'>
@@ -35,6 +35,6 @@ export default (height) => {
             </div>
           </div>
         `
-      )
+        )
     }
 }

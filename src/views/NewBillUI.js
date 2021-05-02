@@ -2,7 +2,7 @@ import VerticalLayout from './VerticalLayout.js'
 
 export default () => {
 
-  return (`
+    return (`
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='content'>

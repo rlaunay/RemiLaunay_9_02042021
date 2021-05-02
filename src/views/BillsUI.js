@@ -2,10 +2,12 @@ import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
 
+import {formatDate} from "../app/format.js"
+
 import Actions from './Actions.js'
 
 const row = (bill) => {
-  return (`
+    return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
@@ -17,16 +19,15 @@ const row = (bill) => {
       </td>
     </tr>
     `)
-  }
-
-const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
 
-export default ({ data: bills, loading, error }) => {
-  
-  const modal = () => (`
-    <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+const rows = (data) => {
+    return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+}
+
+export default ({data: bills, loading, error}) => {
+    const modal = () => (`
+    <div class="modal fade" id="modaleFile" data-testid="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -42,13 +43,13 @@ export default ({ data: bills, loading, error }) => {
     </div>
   `)
 
-  if (loading) {
-    return LoadingPage()
-  } else if (error) {
-    return ErrorPage(error)
-  }
-  
-  return (`
+    if (loading) {
+        return LoadingPage()
+    } else if (error) {
+        return ErrorPage(error)
+    }
+
+    return (`
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='content'>
@@ -69,12 +70,12 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(bills !== undefined ? bills.sort((a, b) => ((a.date < b.date) ? 1 : -1)) : [])}
           </tbody>
           </table>
         </div>
       </div>
       ${modal()}
     </div>`
-  )
+    )
 }
