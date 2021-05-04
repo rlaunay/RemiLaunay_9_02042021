@@ -56,7 +56,7 @@ export default class NewBill {
             this.createBill(bill)
             this.onNavigate(ROUTES_PATH['Bills'])
         } else {
-            alert('c\'est pas bon')
+            alert('format de fichier incorrect')
         }
     }
 
